@@ -1,8 +1,8 @@
-<?
+<?php
 
 declare(strict_types=1);
 
-namespace Scr\Infra;
+namespace Src\Infra;
 
 use Src\Domain\Entities\PrimordialDuck;
 use Src\Domain\Contracts\IPrimordialDuckRepository;
@@ -23,13 +23,11 @@ final class FileDuckRepository implements IPrimordialDuckRepository
     public function save(PrimordialDuck $duck): void
     {
         $data = $duck->to_array();
-        file_put_contents($this->filePath, json_encode(
-            $data,
-            JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE
-        ));
+        $json_line = json_encode($data, JSON_UNESCAPED_UNICODE) . "\n";
+        file_put_contents($this->filePath, $json_line, FILE_APPEND);
     }
 
-    public function getAll(): array
+    public function find_all(): array
     {
         $ducks = [];
 
@@ -43,10 +41,10 @@ final class FileDuckRepository implements IPrimordialDuckRepository
         return $ducks;
     }
 
-    public function getId(): int
+    public function set_id(): int
     {
 
-        $ducks = $this->getAll();
+        $ducks = $this->find_all();
 
         if (empty($ducks)) {
             return 1;

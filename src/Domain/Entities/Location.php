@@ -1,4 +1,4 @@
-<?
+<?php
 
 declare(strict_types=1);
 
@@ -14,9 +14,9 @@ class Location
     public float $longitude;
     public float $latitude;
     public float $precision;
-    public string $type_precision;
 
-    public function set_country_city ($country, $city)
+
+    public function set_country_city (string $country, string $city)
     {
         if ($country == null || $city == null) {
             throw new Exception("Dado obrigatorio");
@@ -46,6 +46,7 @@ class Location
         }
 
         $this->precision = $precision;
+
     }
     public function to_array(): array
     {

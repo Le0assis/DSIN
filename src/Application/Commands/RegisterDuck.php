@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Src\Application;
+namespace Src\Application\Commands;
 
-use Src\Domain\Contracts\IPrimordialDuckRepository;
 use Src\Domain\Entities\Location;
 use Src\Domain\Entities\PrimordialDuck;
 use Src\Domain\Entities\SuperPower;
@@ -33,7 +32,7 @@ final class RegisterDuck
         if ($data['refer']) {
             $loc->set_refer($data['refer']);
         }
-        $loc->set_precision($data['precision'], $data['type_preciso']);
+        $loc->set_precision($data['precision'], $data['precision_type']);
 
         $this->loc = $loc;
 
@@ -43,7 +42,6 @@ final class RegisterDuck
     public function create_duck (array $data)
     {
         $duck = new PrimordialDuck();
-        $duck->set_id($data['id']);
         if (!empty($data['name'])) {
             $duck->set_name($data['name']);
         }

@@ -1,0 +1,1 @@
+{"id":1,"mac_drone":453534,"name":"leonardo Ribeiro","height_cm":1371.6,"weight_g":24493.968,"location":null,"status":"desperto","bpm":null,"mutations_quantity":1,"super_poder":{"name":"trovao","description":"fsakms","class":"forte"}}

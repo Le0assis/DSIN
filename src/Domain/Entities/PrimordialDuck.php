@@ -1,4 +1,4 @@
-<?
+<?php
 
 declare(strict_types=1);
 
@@ -12,14 +12,12 @@ class PrimordialDuck
     public int $mac_drone;
     public ?string $name;
     public float $height;
-    public string $height_type;
     public float $weight;
-    public string $weight_type;
-    public Location $location;
+    public ?Location $location = null;
     public string $status;
-    public ?float $bpm;
+    public ?float $bpm = null;
     public int $mutations_quantity;
-    public ?SuperPower $super_power;
+    public ?SuperPower $super_power = null;
 
     public function set_id(int $id)
     {
@@ -44,7 +42,7 @@ class PrimordialDuck
             $height = $height * 30.48;
         }
         $this->height = $height;
-        $this->height_type = 'cm';
+
     }
 
     public function set_weight (float $weight, string $weight_type = 'g')
@@ -53,7 +51,7 @@ class PrimordialDuck
             $weight = $weight * 453.592;
         }
         $this->weight = $weight;
-        $this->weight_type = 'g';
+
     }
 
     public function set_location (Location $location)
@@ -102,9 +100,9 @@ class PrimordialDuck
             "name" => $this->name,
             "height_cm" => $this->height, // Já está em cm devido aos setters
             "weight_g" => $this->weight,     // Já está em g devido aos setters
-            "location" => $this->location->to_array(),
+            "location" => $this->location ? $this->location->to_array(): null,
             "status" => $this->status,
-            "bpm" => $this->bpm,
+            "bpm" => $this->bpm ? $this->bpm : null,
             "mutations_quantity" => $this->mutations_quantity,
             "super_poder" => $this->super_power ? $this->super_power->to_array() : null,
 
