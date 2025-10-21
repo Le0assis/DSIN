@@ -11,15 +11,15 @@ class PrimordialDuck
     public int $id;
     public int $mac_drone;
     public ?string $name;
-    public int $height;
+    public float $height;
     public string $height_type;
-    public int $weight;
+    public float $weight;
     public string $weight_type;
     public Location $location;
     public string $status;
-    public ?int $bpm;
+    public ?float $bpm;
     public int $mutations_quantity;
-    public ?array $super_power;
+    public ?SuperPower $super_power;
 
     public function set_id(int $id)
     {
@@ -31,22 +31,26 @@ class PrimordialDuck
         if ($mac_drone < 0) {
             throw new Exception("Mac invalido");
         }
-        $this->$mac_drone = $mac_drone;
+        $this->mac_drone = $mac_drone;
+    }
+    public function set_name(string $name)
+    {
+        $this->name = $name;
     }
 
-    public function set_height (int $height, string $height_type = 'm')
+    public function set_height (float $height, string $height_type = 'm')
     {
         if ($height_type === 'ft'){
-            $height = $height * 0.3048;
+            $height = $height * 30.48;
         }
         $this->height = $height;
         $this->height_type = 'cm';
     }
 
-    public function set_weight (int $weight, string $weight_type = 'g')
+    public function set_weight (float $weight, string $weight_type = 'g')
     {
         if ($weight_type === 'lb') {
-            $weight = $weight *0.453592;
+            $weight = $weight * 453.592;
         }
         $this->weight = $weight;
         $this->weight_type = 'g';
@@ -60,8 +64,8 @@ class PrimordialDuck
     public function set_status (string $status)
     {
         if (
-            strtolower($status) != "desperto" ||
-            strtolower($status) != "em transe" ||
+            strtolower($status) != "desperto" &&
+            strtolower($status) != "em transe" &&
             strtolower($status) != "hibernação profunda"
         ) {
             throw new Exception("Status invalido");
@@ -70,7 +74,7 @@ class PrimordialDuck
         $this->status = $status;
     }
 
-    public function set_bpm (int $bpm) {
+    public function set_bpm (float $bpm) {
         if ($bpm <= 0) {
             throw new Exception("Bpm invalido");
         }
@@ -87,7 +91,26 @@ class PrimordialDuck
 
     public function set_super_power (SuperPower $super_power)
     {
-        $this->super_power;
+        $this->super_power = $super_power;
+    }
+
+    public function to_array ()
+    {
+        return[
+            "id" => $this->id,
+            "mac_drone" => $this->mac_drone, 
+            "name" => $this->name,
+            "height_cm" => $this->height, // Já está em cm devido aos setters
+            "weight_g" => $this->weight,     // Já está em g devido aos setters
+            "location" => $this->location->to_array(),
+            "status" => $this->status,
+            "bpm" => $this->bpm,
+            "mutations_quantity" => $this->mutations_quantity,
+            "super_poder" => $this->super_power ? $this->super_power->to_array() : null,
+
+        ];
+        
+
     }
 
 }

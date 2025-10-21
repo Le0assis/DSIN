@@ -16,5 +16,14 @@ class SuperPower
         $this->$description = $description;
         $this->class = $class;
     }
+
+   public function to_array(): array
+    {
+        return [
+            "name" => $this->name,
+            "description" => $this->description,
+            "class" => $this->class,
+        ];
+    } 
 }
 

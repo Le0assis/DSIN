@@ -25,7 +25,7 @@ class Location
         $this->city = $city;
     }
 
-    public function set_coord (int $longitude, int $latitude)
+    public function set_coord (float $longitude, float $latitude)
     {
         $this->longitude = $longitude;
         $this->latitude = $latitude;   
@@ -46,6 +46,17 @@ class Location
         }
 
         $this->precision = $precision;
+    }
+    public function to_array(): array
+    {
+        return [
+            "city" => $this->city,
+            "country" => $this->country,
+            "latitude" => $this->latitude,
+            "longitude" => $this->longitude,
+            "precision" => $this->precision,
+            "refer" => $this->refer ? $this->refer : null,
+        ];
     }
 
 }
