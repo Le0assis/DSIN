@@ -10,33 +10,12 @@ use Src\Domain\Entities\SuperPower;
 
 final class RegisterDuck
 {
-    public Location $loc;
+    public Location $location;
     public PrimordialDuck $duck;
     public SuperPower $super_power;
 
     public function __construct()
     {
-    }
-
-    public function create_loc (array $data)
-    {
-        $loc = new Location();
-        $loc->set_country_city(
-            $data['country'],
-            $data['city']
-        );
-        $loc->set_coord(
-            $data['longitude'],
-            $data['latitude']
-        );
-        if ($data['refer']) {
-            $loc->set_refer($data['refer']);
-        }
-        $loc->set_precision($data['precision'], $data['precision_type']);
-
-        $this->loc = $loc;
-
-        return $loc;
     }
 
     public function create_duck (array $data)
@@ -50,12 +29,34 @@ final class RegisterDuck
         $duck->set_weight($data['weight'], $data['weight_type']);
         $duck->set_status($data['status']);
         if ($data['bpm'] != null) {
-            $$duck->set_bpm($data['bpm']);
+            $duck->set_bpm($data['bpm']);
         }
         $duck->set_mutation ($data['mutations_quantity']);
 
         $this->duck = $duck;
     }
+        public function create_loc (array $data)
+    {
+        $loaction = new Location();
+        $loaction->set_country_city(
+            $data['country'],
+            $data['city']
+        );
+        $loaction->set_coord(
+            $data['longitude'],
+            $data['latitude']
+        );
+        if (!empty($data['refer'])) {
+            $loaction->set_refer($data['refer']);
+        }
+        $loaction->set_precision($data['precision'], $data['precision_type']);
+
+        $this->location = $loaction;
+        $this->duck->set_location($this->location);
+        
+        return $loaction;
+    }
+
 
     public function create_super_power(array $data)
     {

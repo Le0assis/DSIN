@@ -11,11 +11,11 @@ use Src\Infra\FileDuckRepository;
 final class PrimordialDuckService
 {
     public RegisterDuck $registrator;
-    public FileDuckRepository $rep;
+    public FileDuckRepository $repository;
 
     public function __construct(string $file)
     {
-        $this->rep = new FileDuckRepository($file);
+        $this->repository = new FileDuckRepository($file);
         $this->registrator = new RegisterDuck();
     }
 
@@ -25,16 +25,18 @@ final class PrimordialDuckService
         array $sp_data
     ) {
         try{
-         $this->registrator->create_loc($loc_data);
 
         $this->registrator->create_duck($duck_data);
+        
+        echo "<p> passo aqui </p>";
+        $this->registrator->create_loc($loc_data);
 
         if (!empty($sp_data)) {
             $this->registrator->create_super_power($sp_data);
         }
-        $id = $this->rep->set_id();
+        $id = $this->repository->set_id();
         $this->registrator->duck->set_id($id);
-        $this->rep->save($this->registrator->duck);
+        $this->repository->save($this->registrator->duck);
 
         return [
             'success' => true,

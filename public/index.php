@@ -25,7 +25,7 @@ $loc_data = [
   'refer' => $POST['refer'] ?? '',
   'latitude' => isset($_POST['latitude']) ? (float) $_POST['latitude'] : 0.0,
   'longitude' => isset($_POST['longitude']) ? (float) $_POST['longitude'] : 0.0,
-  'precision' => isset($_POST['precision']) ? (string) $_POST['precision'] : 0,
+  'precision' => isset($_POST['precision']) ? (int) $_POST['precision'] : 0,
   'precision_type' => $_POST['precision_type'] ?? 'cm'
 ];
 
@@ -41,7 +41,7 @@ if (!empty($_POST['sp_name'])) {
     $service = new PrimordialDuckService($file);
     $result = $service->register($loc_data, $duck_data, $sp_data);
 
-    $message = $result['message'] ?? 'Pato criado com sucesso';
+    $message = $result['message'];
     $createdDuck = $result['data'] ?? null;
     
 
@@ -108,7 +108,7 @@ if (!empty($_POST['sp_name'])) {
           <option value="hibernação profunda">Hibernação profunda</option>
         </select>
 
-        <input name="bpm" placeholder="BPM" type="number"><br>
+        <input name="bpm" placeholder="bpm" type="number"><br>
         <input name="mutations_quantity" placeholder="Quantidade de mutações" type="number" required><br>
     </fieldset>
 
@@ -131,7 +131,17 @@ if (!empty($_POST['sp_name'])) {
 
     <button type="submit">Criar</button>
   </form>
-
+   <?php 
+    // 🛑 Bloco para injetar o ALERT
+    if (isset($message)): 
+        // Usa json_encode para garantir que a mensagem (especialmente se tiver aspas) seja formatada corretamente para JavaScript.
+        $js_message = json_encode($message);
+    ?>
+        <script type='text/javascript'>
+            // Isso irá rodar assim que a página for recarregada após o POST
+            alert(<?php echo $js_message; ?>);
+        </script>
+    <?php endif; ?>
 
 </body>
 

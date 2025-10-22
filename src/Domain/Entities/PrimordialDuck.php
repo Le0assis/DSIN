@@ -72,7 +72,7 @@ class PrimordialDuck
         $this->status = $status;
     }
 
-    public function set_bpm (float $bpm) {
+    public function set_bpm (int $bpm) {
         if ($bpm <= 0) {
             throw new Exception("Bpm invalido");
         }
@@ -98,8 +98,8 @@ class PrimordialDuck
             "id" => $this->id,
             "mac_drone" => $this->mac_drone, 
             "name" => $this->name,
-            "height_cm" => $this->height, // Já está em cm devido aos setters
-            "weight_g" => $this->weight,     // Já está em g devido aos setters
+            "height_cm" => $this->height, 
+            "weight_g" => $this->weight,
             "location" => $this->location ? $this->location->to_array(): null,
             "status" => $this->status,
             "bpm" => $this->bpm ? $this->bpm : null,

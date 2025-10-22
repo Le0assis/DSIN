@@ -10,7 +10,7 @@ class Location
 {
     public string $country;
     public string $city;
-    public ?string $refer;
+    public ?string $refer = null;
     public float $longitude;
     public float $latitude;
     public float $precision;
