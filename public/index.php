@@ -16,13 +16,13 @@ $duck_data = [
   'status' => $_POST['status'] ?? '',
   'bpm' => isset($_POST['bpm']) ? (int) $_POST['bpm'] : null,
   'mutations_quantity' => isset($_POST['mutations_quantity']) ? (int) $_POST['mutations_quantity'] : 0,
-  'name' => $_POST['name'] ?? '',
+  'name' => $_POST['name'] ?? null,
 ];
 
 $loc_data = [
   'country' => $_POST['country'] ?? '',
   'city' => $_POST['city'] ?? '',
-  'refer' => $POST['refer'] ?? '',
+  'refer' => $_POST['refer'] ?? '',
   'latitude' => isset($_POST['latitude']) ? (float) $_POST['latitude'] : 0.0,
   'longitude' => isset($_POST['longitude']) ? (float) $_POST['longitude'] : 0.0,
   'precision' => isset($_POST['precision']) ? (int) $_POST['precision'] : 0,
@@ -36,7 +36,7 @@ if (!empty($_POST['sp_name'])) {
     'description' => $_POST['sp_description'] ?? '',
     'class' => $_POST['sp_class'] ?? ''
   ];
-
+}
   try {
     $service = new PrimordialDuckService($file);
     $result = $service->register($loc_data, $duck_data, $sp_data);
@@ -49,7 +49,7 @@ if (!empty($_POST['sp_name'])) {
     $message = "Erro: " . $e->getMessage();
   }
 
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -57,92 +57,110 @@ if (!empty($_POST['sp_name'])) {
 <head>
   <meta charset="UTF-8">
   <title>Criar Pato Primordial</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 2rem;
-    }
+  <link rel="stylesheet" href="css\style-index.css">
 
-    fieldset {
-      margin-bottom: 1rem;
-    }
-
-    #message {
-      margin-top: 1rem;
-      padding: 0.75rem;
-      border-radius: 6px;
-      display: none;
-    }
-
-    #message.success {
-      background-color: #d4edda;
-      color: #155724;
-    }
-
-    #message.error {
-      background-color: #f8d7da;
-      color: #721c24;
-    }
-  </style>
 </head>
-
 <body>
-  <h2>🦆 Criar Pato Primordial</h2>
+  <form class="container" method="POST">
+    <!-- Grupo LOCALIZAÇÃO -->
+    <fieldset class="card">
+      <legend>Localização</legend>
+      <div class="input-group">
+        <input name="country" placeholder="País" type="text">
+      </div>
+      <div class="input-group">
+        <input name="city" placeholder="Cidade" type="text" required>
+      </div>
+      <div class="input-group">
+        <input name="refer" placeholder="Referencia" type="text">
+      </div>
+      <div class="input-group">
+        <input name="longitude" placeholder="Longitude" type="number" step="any" required>
+      </div>
+      <div class="input-group">
+        <input name="altitude" placeholder="Altitude" type="number" step="any">
+      </div>
 
-  <form id="duckForm" method="POST">
-    <fieldset>
+       <div class="input-group">
+        <input name="precision" placeholder="Precisão" type="number">
+      </div>
+            <div class="input-group">
+        <select name="precision_type" required>
+          <option value="">Precisão</option>
+          <option value="cm">Centimetros</option>
+          <option value="m">Metros</option>
+          <option value="yd">Jardas</option>
+        </select>
+      </div>
+    </fieldset>
+
+    <!-- Grupo PATO -->
+    <fieldset class="card">
       <legend>Dados do Pato</legend>
-      <input type="text" name="name" placeholder="name"><br>
-      <input name="mac_drone" placeholder="MAC do drone" type="number" required><br>
-      <input name="height" placeholder="Altura" type="number" required><br>
-      <input name="height_type" placeholder="Tipo de altura (cm/ft)" required><br>
-      <input name="weight" placeholder="Peso" type="number" required><br>
-      <input name="weight_type" placeholder="Tipo de peso (kg/lb)" required><br>
-
-      <<label for="status_pato">Selecione o Status:</label>
-        <select id="status_pato" name="status">
-          <option value="" disabled selected>Escolha o Status</option>
-
-          <option value="Desperto">Desperto</option>
-          <option value="Em transe">Em transe</option>
+      <div class="input-group">
+        <input name="mac_drone" placeholder="MAC do drone" type="number" required>
+      </div>
+      <div class="input-group">
+        <input name="name" placeholder="Nome do pato" type="text">
+      </div>
+      <div class="input-group">
+        <input name="height" placeholder="Altura" type="number" required>
+        <select name="height_type" required>
+          <option value="">Tipo de altura</option>
+          <option value="cm">Centímetros (cm)</option>
+          <option value="ft">Pés (ft)</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <input name="bpm" placeholder="Batimentos cardiacos" type="text">
+      </div>
+      <div class="input-group">
+        <input name="mutations_quantity" placeholder="Quantidade de mutações" type="text">
+      </div>
+      <div class="input-group">
+        <input name="weight" placeholder="Peso" type="number" required>
+        <select name="weight_type" required>
+          <option value="">Tipo de peso</option>
+          <option value="kg">Quilos (kg)</option>
+          <option value="lb">Libras (lb)</option>
+        </select>
+      </div>
+      <div class="input-group">
+        <select name="status" required>
+          <option value="">Status</option>
+          <option value="desperto">Desperto</option>
+          <option value="em transe">Em transe</option>
           <option value="hibernação profunda">Hibernação profunda</option>
         </select>
+      </div>
+      <div class="input-group">
+        <button type="submit">Salvar Pato</button>
+        <a href="./card.php" class="btn-view">Ver Patos</a>
+      </div>
 
-        <input name="bpm" placeholder="bpm" type="number"><br>
-        <input name="mutations_quantity" placeholder="Quantidade de mutações" type="number" required><br>
+
+
+
+        
+      
     </fieldset>
 
-    <fieldset>
-      <legend>Localização</legend>
-      <input name="country" placeholder="País" required><br>
-      <input name="city" placeholder="Cidade" required><br>
-      <input type="text" name="refer" placeholder="Referencia"><br>
-      <input name="latitude" placeholder="Latitude" type="number" step="any" required><br>
-      <input name="longitude" placeholder="Longitude" type="number" step="any" required><br>
-      <input type="number" placeholder="precision" name="precision"><br>
+    <!-- Grupo SUPERPODER -->
+    <fieldset class="card">
+      <legend>Superpoder</legend>
+      <div class="input-group">
+        <input name="sp_name" placeholder="Nome do poder" type="text">
+      </div>
+      <div class="input-group">
+        <input name="sp_description" placeholder="Descrição" type="text">
+      </div>
+      <div class="input-group">
+        <input name="sp_class" placeholder="Classe" type="text">
+      </div>
     </fieldset>
 
-    <fieldset>
-      <legend>Super Poder (opcional)</legend>
-      <input name="sp_name" placeholder="Nome do poder"><br>
-      <input name="sp_description" placeholder="Descrição"><br>
-      <input name="sp_class" placeholder="Classe"><br>
-    </fieldset>
-
-    <button type="submit">Criar</button>
   </form>
-   <?php 
-    // 🛑 Bloco para injetar o ALERT
-    if (isset($message)): 
-        // Usa json_encode para garantir que a mensagem (especialmente se tiver aspas) seja formatada corretamente para JavaScript.
-        $js_message = json_encode($message);
-    ?>
-        <script type='text/javascript'>
-            // Isso irá rodar assim que a página for recarregada após o POST
-            alert(<?php echo $js_message; ?>);
-        </script>
-    <?php endif; ?>
-
+     
 </body>
 
 </html>

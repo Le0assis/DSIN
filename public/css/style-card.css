@@ -1,10 +1,12 @@
     body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f2f5;
-        margin: 0;
-        padding: 20px;
-        display: flex;
-        justify-content: center;
+       margin: 0;
+       font-family: "Inter", sans-serif;
+       background: linear-gradient(135deg, #eef2f3, #dfe9f3);
+       display: flex;
+       justify-content: center;
+       align-items: flex-start;
+       min-height: 100vh;
+       padding: 40px;
     }
 
     #cards-container {
@@ -36,14 +38,15 @@
         margin-bottom: 15px;
     }
 
-    .card-image {
+    .card-image{
         width: 80px;
         height: 80px;
-        background-image: url('public/img/duck-image.jpg');
         border-radius: 50%;
         margin-right: 15px;
-        background-size: cover;
-        background-position: center;
+        object-fit: cover;
+        image-rendering: auto;
+        image-rendering: crisp-edges;
+
     }
 
     .card-title-group {
@@ -51,7 +54,7 @@
     }
 
     .card-name {
-        font-size: 24px;
+        font-size: 20px;
         font-weight: bold;
         color: #333;
         margin: 0;
@@ -75,12 +78,9 @@
         color: #666;
         font-size: 14px;
         margin-top: 5px;
-    }
-
-    .card-location, .card-mutations {
         margin-right: 8px;
         font-size: 16px;
-    }    
+    }
 
     .card-ability {
         background-color: #f0f0f5;
@@ -130,21 +130,19 @@
         color: #333;
     }
 
-    /* Botão */
     .card-button {
-        width: 100%;
-        padding: 10px;
-        background-color: #333c4a;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        margin-top: 15px;
-        transition: background-color 0.3s;
+       background: #4a90e2;
+       color: #fff;
+       border: none;
+       border-radius: 10px;
+       padding: 12px 20px;
+       font-size: 1rem;
+       cursor: pointer;
+       transition: background 0.25s ease, transform 0.1s ease;
+       width: 100%;
     }
 
     .card-button:hover {
-        background-color: #4f5b6b;
+       background: #3a7bd5;
+       transform: scale(1.02);
     }

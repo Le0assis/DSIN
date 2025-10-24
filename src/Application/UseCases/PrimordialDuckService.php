@@ -28,7 +28,6 @@ final class PrimordialDuckService
 
         $this->registrator->create_duck($duck_data);
         
-        echo "<p> passo aqui </p>";
         $this->registrator->create_loc($loc_data);
 
         if (!empty($sp_data)) {

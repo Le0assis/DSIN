@@ -48,13 +48,14 @@ $ducks_json = json_encode($ducksArray);
 
 
             const details = [
-                { label: 'Id', value: duck.id },
                 { label: 'Numero de série Drone', value: duck.mac_drone },
-                { label: 'Altura', value: duck.height },
-                { label: 'Peso', value: duck.weight },
+                { label: 'Altura', value: duck.height_cm + ' cm' },
+                { label: 'Peso', value: duck.weight_g + ' g' },
                 { label: 'BPM', value: duck.bpm ?? "??" },
                 { label: 'Coordenadas', value: duck.location.latitude + ', ' + duck.location.longitude },
-                { label: 'Precisão', value: duck.precisao }
+                { label: 'Precisão', value: duck.location.precision + ' cm' },
+                { label: 'Referência', value: duck.location.refer  ?? 'Sem referência'}
+
             ];
 
             const detailsHTML = details.map(item => `
@@ -68,7 +69,7 @@ $ducks_json = json_encode($ducksArray);
             return `
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-image"></div>
+                        <img src="img/duck-image.png" alt="Pato" class="card-image">
                         <div class="card-title-group">
                             <h2 class="card-name">${duck.name ?? "Desconhecido"}</h2>
                             <span class="card-status">${duck.status}</span>
@@ -87,7 +88,7 @@ $ducks_json = json_encode($ducksArray);
                         ${detailsHTML}
                     </div>
 
-                    <button class="card-button">Ver mais</button>
+                    <button class="card-button" duck-data="${duckId}" type="submmit">Calcular risco</button>
                 </div>
             `;
         }
