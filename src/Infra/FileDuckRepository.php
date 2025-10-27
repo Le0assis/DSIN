@@ -88,7 +88,7 @@ final class FileDuckRepository implements IPrimordialDuckRepository
         $ducks = $this->find_all();
 
         foreach ($ducks as $duck) {
-            if ($duck['id'] == $id) {
+            if ($duck.$id == $id) {
                 return $duck;
             }
         }
@@ -104,7 +104,7 @@ final class FileDuckRepository implements IPrimordialDuckRepository
         }
 
         $last = end($ducks);
-        return ($last['id'] ?? 0) + 1;
+        return ($last->id ?? 0) + 1;
     }
 
 }
