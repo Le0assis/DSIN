@@ -35,9 +35,9 @@ DSIN/
  ├── vendor/
  ├── composer.json
  └── index.php
+ 
 4. Instalando Dependências
 Dentro da pasta do projeto, execute o comando:
-
 
 composer install
 Isso fará o download automático de todas as dependências necessárias.
