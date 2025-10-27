@@ -32,7 +32,8 @@ class Location
     }
 
     public function set_refer (string $refer)
-    {
+    {   
+
         if (strlen($refer) < 2) {
             throw new Exception("Nome curto demais");
         }

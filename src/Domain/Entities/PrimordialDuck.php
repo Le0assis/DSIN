@@ -19,6 +19,8 @@ class PrimordialDuck
     public int $mutations_quantity;
     public ?SuperPower $super_power = null;
 
+    public ?array $classification = null;
+
     public function set_id(int $id)
     {
         $this->id = $id;
@@ -92,7 +94,12 @@ class PrimordialDuck
         $this->super_power = $super_power;
     }
 
-    public function to_array ()
+    public function set_classify($classification)
+    {
+        $this->classification = $classification;
+    }
+
+        public function to_array ()
     {
         return[
             "id" => $this->id,
@@ -105,10 +112,8 @@ class PrimordialDuck
             "bpm" => $this->bpm ? $this->bpm : null,
             "mutations_quantity" => $this->mutations_quantity,
             "super_poder" => $this->super_power ? $this->super_power->to_array() : null,
+            "classification" => $this->classification ?? null,
 
         ];
-        
-
     }
-
 }

@@ -8,13 +8,13 @@ require __DIR__ . '/../vendor/autoload.php';
 $file = __DIR__ . '/../storage/PrimordialDuck.txt';
 
 $duck_data = [
-  'mac_drone' => isset($_POST['mac_drone']) ? (int) $_POST['mac_drone'] : null,
-  'height' => isset($_POST['height']) ? (float) $_POST['height'] : null,
+  'mac_drone' => isset($_POST['mac_drone']) ? (int) $_POST['mac_drone'] : 0,
+  'height' => isset($_POST['height']) ? (float) $_POST['height'] : 0.0,
   'height_type' => $_POST['height_type'] ?? '',
-  'weight' => isset($_POST['weight']) ? (float) $_POST['weight'] : null,
+  'weight' => isset($_POST['weight']) ? (float) $_POST['weight'] : 0.0,
   'weight_type' => $_POST['weight_type'] ?? '',
   'status' => $_POST['status'] ?? '',
-  'bpm' => isset($_POST['bpm']) ? (int) $_POST['bpm'] : null,
+  'bpm' => isset($_POST['bpm']) ? (int) $_POST['bpm'] : 0.0,
   'mutations_quantity' => isset($_POST['mutations_quantity']) ? (int) $_POST['mutations_quantity'] : 0,
   'name' => $_POST['name'] ?? null,
 ];
