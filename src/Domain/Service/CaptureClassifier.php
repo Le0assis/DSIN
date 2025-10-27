@@ -13,8 +13,6 @@ final class CaptureClassifier
     private int $risk = 0;
     private float $scientifc_gain = 0.0;
     private int $operacional_risk = 0;
-
-    // Base DSIN (constante)
     private const DSIN_LAT = -22.23354373725337;
     private const DSIN_LON = -49.93411930338776;
 
@@ -97,7 +95,6 @@ final class CaptureClassifier
 
     private function get_distance(): float
     {
-        // Se não existir location ou lat/lon, retorna um valor grande (para indicar distância desconhecida)
         if (empty($this->primordialDuck->location)
             || !isset($this->primordialDuck->location->latitude)
             || !isset($this->primordialDuck->location->longitude)
@@ -116,7 +113,6 @@ final class CaptureClassifier
         $dLatRad = deg2rad($duckLatitude - self::DSIN_LAT);
         $dLonRad = deg2rad($duckLongitude - self::DSIN_LON);
 
-        // Haversine
         $a = sin($dLatRad / 2) * sin($dLatRad / 2) +
             cos($baseLatRad) * cos($duckLatRad) * sin($dLonRad / 2) * sin($dLonRad / 2);
 
@@ -166,13 +162,13 @@ final class CaptureClassifier
                 'squad' => "1 Drone de suporte\n2 Agente com equipamento não letal"
             ];
         } elseif ($risk > 3 && $risk <= 7) {
-            $this->operacional_risk = 6; // ajuste plausível (antes estava 3 em todos)
+            $this->operacional_risk = 6;
             return [
                 'necessity' => 'Moderada',
                 'squad' => "2 Drones de captura\n1 Veiculo de suporte terrestre"
             ];
         } elseif ($risk > 7 && $risk <= 10) {
-            $this->operacional_risk = 9; // ajuste plausível (nível maior)
+            $this->operacional_risk = 9;
             return [
                 'necessity' => 'Maxima',
                 'squad' => "1 Esquadrão de contenção especial\n2 Veiculos blindados\n1 Drone de ataque especial"
@@ -181,13 +177,9 @@ final class CaptureClassifier
 
         return null;
     }
-
-    // --------------------------
-    // CLASSIFICAÇÃO PÚBLICA
-    // --------------------------
     public function classify(): array
     {
-        // garante cálculos prévios na ordem correta
+
         $this->calculate_risk();
         $this->calculate_scientific_gain();
         $mission = $this->calculate_capture_risk();
@@ -196,7 +188,6 @@ final class CaptureClassifier
         $risk = $this->risk;
         $value = $this->scientifc_gain;
 
-        // evita divisão por zero
         $denominator = $capture_risk * $risk;
         if ($denominator <= 0.0) {
             $analysis = 0.0;

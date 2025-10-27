@@ -16,7 +16,7 @@ $duck_data = [
   'status' => $_POST['status'] ?? '',
   'bpm' => isset($_POST['bpm']) ? (int) $_POST['bpm'] : 0.0,
   'mutations_quantity' => isset($_POST['mutations_quantity']) ? (int) $_POST['mutations_quantity'] : 0,
-  'name' => $_POST['name'] ?? null,
+  'name' => isset($_POST['name']) ? (string) $_POST['name'] : null,
 ];
 
 $loc_data = [
@@ -94,7 +94,6 @@ if (!empty($_POST['sp_name'])) {
       </div>
     </fieldset>
 
-    <!-- Grupo PATO -->
     <fieldset class="card">
       <legend>Dados do Pato</legend>
       <div class="input-group">

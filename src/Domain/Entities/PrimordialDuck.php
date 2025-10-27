@@ -10,7 +10,7 @@ class PrimordialDuck
 {
     public int $id;
     public int $mac_drone;
-    public ?string $name;
+    public ?string $name = null;
     public float $height;
     public float $weight;
     public ?Location $location = null;
